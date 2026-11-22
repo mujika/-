@@ -1,0 +1,49 @@
+# XcodeGen 設定。`cd App && xcodegen generate` で RaveMorph.xcodeproj を生成する。
+name: RaveMorph
+options:
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+packages:
+  MorphCore:
+    path: ../MorphCore
+# 署名設定(Team / Bundle ID)は Signing.xcconfig に書く。なければ既定値のまま(シミュレータ用)。
+configFiles:
+  Debug: Config.xcconfig
+  Release: Config.xcconfig
+targets:
+  RaveMorph:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+      # B に使う音声(任意)。Resources/B.wav があればそれを、なければ合成音を使う。
+      - path: Resources
+        buildPhase: resources
+        optional: true
+      # scripts/fetch_models.py で取得したモデル。なくてもビルドは通る(起動後にエラー表示)。
+      - path: ../Models/rave_encoder_xnnpack.pte
+        buildPhase: resources
+        optional: true
+      - path: ../Models/rave_decoder_xnnpack.pte
+        buildPhase: resources
+        optional: true
+    dependencies:
+      - package: MorphCore
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: RaveMorph
+        NSMicrophoneUsageDescription: マイクの音(A)をリアルタイムにモーフィングするために使います。
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        MARKETING_VERSION: "0.1"
+        CURRENT_PROJECT_VERSION: "1"
+        # ExecuTorch のバックエンドとカーネルの登録に必要。
+        OTHER_LDFLAGS: ["$(inherited)", "-all_load"]

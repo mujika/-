@@ -1,0 +1,6 @@
+// 既定値(プレースホルダ)。実機用の Team / Bundle ID は Signing.xcconfig で上書きする。
+PRODUCT_BUNDLE_IDENTIFIER = com.example.RaveMorph
+DEVELOPMENT_TEAM =
+CODE_SIGN_STYLE = Automatic
+
+#include? "Signing.xcconfig"

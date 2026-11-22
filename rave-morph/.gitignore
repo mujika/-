@@ -1,0 +1,13 @@
+# モデル(CC BY-NC 4.0)はコミットしない。scripts/fetch_models.py で取得する。
+Models/
+*.pte
+
+# ビルド生成物
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj
+App/Info.plist
+App/Signing.xcconfig
+xcuserdata/
+.DS_Store

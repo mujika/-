@@ -1,0 +1,3 @@
+// これを Signing.xcconfig にコピーして自分の値を入れる(Signing.xcconfig は .gitignore 済み)。
+PRODUCT_BUNDLE_IDENTIFIER = com.yourname.RaveMorph
+DEVELOPMENT_TEAM = XXXXXXXXXX
